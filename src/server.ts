@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 import config from "./config/index";
 import app from "./app";
+import APIError from "./errorHelpers/APIError";
+
+process.on("uncaught Exception", (err) => {
+  throw new APIError(500, "uncaught Exception");
+});
 
 async function dbConnect() {
   try {
@@ -14,3 +19,11 @@ async function dbConnect() {
     console.log("Failed to connect database", err);
   }
 }
+process.on("unhandledRejection", (err) => {
+  throw new APIError(500, "Error due to unhandled Rejection");
+});
+dbConnect();
+
+process.on("SIGTERM", () => {
+  throw new APIError(500, "Error due to SIGTERM");
+});
