@@ -1,4 +1,4 @@
-### Live Link:
+### Live Link: hut-assignment-admin-production.up.railway.app
 
 ## Application Routes:
 
